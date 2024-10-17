@@ -1,16 +1,13 @@
-# Step 1: Start with the official Node.js image
-FROM node:20
-
-# Step 2: Set the working directory inside the container
+# Step 1: Build Stage
+FROM node:20 AS build
 WORKDIR /app
-
-# Step 3: Copy package.json and package-lock.json and install dependencies
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm install
+COPY . . 
 
-# Step 4: Copy the rest of your app code into the container
-COPY src ./src
-
-# Step 5: Expose the port your app will run on
+# Step 2: Production Stage
+FROM node:20-slim
+WORKDIR /app
+COPY --from=build /app .
 EXPOSE 3000
-
+CMD ["node", "src/server.js"]

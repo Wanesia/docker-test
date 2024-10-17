@@ -12,6 +12,11 @@ services:
     networks:
       - public-network
       - internal-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: '512M'
     command: bash -c "node ./src/scripts/populate.js && npm start"
 
 
@@ -21,7 +26,11 @@ services:
       - mongo-data:/data/db
     networks:
       - internal-network
-
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: '512M'
 volumes:
   mongo-data:
 

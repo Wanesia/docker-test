@@ -48,6 +48,7 @@ services:
     image: containrrr/watchtower
     environment:
       - WATCHTOWER_POLL_INTERVAL=86400  # 24h
+    command: --host http://docker-socket-proxy:2375
     networks:
       - internal-network
 

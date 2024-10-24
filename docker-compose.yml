@@ -19,7 +19,7 @@ services:
           cpus: '0.50'
           memory: '512M'
     command: bash -c "node ./src/scripts/populate.js && npm start"
-
+    user: appuser
 
   mongo:
     image: mongo:8.0.1
